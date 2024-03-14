@@ -1,4 +1,4 @@
-from classifier import TextClassifier
+from text_classifier_simple import TextClassifier
 
 categories = ["Technology", "Sports", "Politics"]
 

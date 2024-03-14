@@ -1,6 +1,6 @@
 import math
 
-from preprocessor import TextPreprocessor
+from text_preprocessor import TextPreprocessor
 
 
 class TextClassifier:
