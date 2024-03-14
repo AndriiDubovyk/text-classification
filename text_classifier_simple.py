@@ -1,3 +1,29 @@
+"""A text classifier that uses TF-IDF and cosine similarity for categorization.
+
+This module provides a TextClassifier class for classifying text documents into predefined categories.
+The classifier utilizes TF-IDF (Term Frequency-Inverse Document Frequency) and cosine similarity
+to determine the similarity between a query and text documents.
+
+Attributes:
+    language (str): The language used for text preprocessing, default is 'english'.
+    use_lemmatization (bool): Whether to perform lemmatization during text preprocessing, default is False.
+    use_stemming (bool): Whether to perform stemming during text preprocessing, default is True.
+
+Methods:
+    classify(categories, texts): Classifies the input texts into predefined categories.
+        Uses TF-IDF and cosine similarity for categorization.
+
+Example:
+    from text_classifier import TextClassifier
+
+    classifier = TextClassifier(language='english', use_lemmatization=True)
+    categories = ['business', 'science', 'sports']
+    texts = ['An article about the latest stock market trends.',
+             'A research paper on quantum computing.',
+             'A review of the recent football match.']
+    predicted_categories = classifier.classify(categories, texts)
+"""
+
 import math
 
 from text_preprocessor import TextPreprocessor
@@ -5,6 +31,15 @@ from text_preprocessor import TextPreprocessor
 
 class TextClassifier:
     def __init__(self, language='english', use_lemmatization=False, use_stemming=True):
+        """Initialize the TextClassifier.
+
+        Args:
+            language (str, optional): The language used for text preprocessing. Defaults to 'english'.
+            use_lemmatization (bool, optional): Whether to perform lemmatization during text preprocessing.
+                Defaults to False.
+            use_stemming (bool, optional): Whether to perform stemming during text preprocessing.
+                Defaults to True.
+        """
         self.preprocessor = TextPreprocessor(language, use_lemmatization, use_stemming)
 
     @staticmethod
@@ -56,6 +91,17 @@ class TextClassifier:
         return similarities
 
     def classify(self, categories, texts):
+        """Classify the input texts into predefined categories.
+
+        Utilizes TF-IDF and cosine similarity for categorization.
+
+        Args:
+            categories (list of str): Predefined categories for classification.
+            texts (list of str): Text documents to be classified.
+
+        Returns:
+            list of str: Predicted categories for each input text.
+        """
         category_to_text_similarities = []
         for category in categories:
             similarities = self.__calculate_similarities(category, texts)
