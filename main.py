@@ -1,15 +1,25 @@
-from text_classifier_simple import TextClassifier
+from text_classifier_ml import TextClassifier
 
-categories = ["Technology", "Sports", "Politics"]
+# Instantiate the TextClassifier
+classifier = TextClassifier()
 
+# Train the classifier with some example data
+categories = ["sports", "politics", "technology"]
 texts = [
-    "Artificial intelligence is revolutionizing the tech industry. Companies are investing heavily in AI research and development.",
-    "The Super Bowl is one of the most-watched sporting events in the United States. Football fans eagerly anticipate this annual championship game.",
-    "The latest election results have sparked debates across the nation. Political analysts are dissecting the outcomes and their implications.",
-    "Machine learning algorithms are being used to predict customer behavior in e-commerce. This helps businesses personalize user experiences and increase sales.",
-    "Basketball is a popular sport worldwide. NBA players are admired for their skills and athleticism on the court.",
-    "Virtual reality technology is changing the way we interact with computers. VR headsets offer immersive experiences for gaming and simulations."
+    "The football match was exciting and intense.",
+    "The government passed a new law on taxation.",
+    "The latest smartphone has impressive features."
 ]
-classifier = TextClassifier(language='english', use_lemmatization=False, use_stemming=True)
-result = classifier.classify(categories, texts)
-print("Result:", result)
+classifier.train(categories, texts)
+
+# Classify some new texts
+new_texts = [
+    "A new bill regarding healthcare was proposed.",
+    "A soccer tournament is happening next week.",
+    "A breakthrough in artificial intelligence research was announced."
+]
+predicted_categories = classifier.classify(new_texts)
+
+# Print the predicted categories for the new texts
+for text, category in zip(new_texts, predicted_categories):
+    print(f"Text: '{text}' -> Predicted Category: '{category}'")
