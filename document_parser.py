@@ -61,7 +61,7 @@ class DocumentParser:
         elif file_path.endswith('.docx'):
             return DocumentParser._parse_docx(file_path)
         elif file_path.endswith('.txt'):
-            with open(file_path, 'r') as file:
+            with open(file_path, 'r', encoding='utf-8') as file:
                 return file.read()
         else:
             raise ValueError("Unsupported file format")
