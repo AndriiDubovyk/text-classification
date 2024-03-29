@@ -33,7 +33,7 @@ import pickle
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.svm import SVC
 
-from text_preprocessor import TextPreprocessor
+from src.models.text_preprocessor import TextPreprocessor
 
 
 class TextClassifier:
@@ -47,7 +47,7 @@ class TextClassifier:
             use_stemming (bool, optional): Whether to perform stemming during text preprocessing.
                 Defaults to True.
         """
-        self.model_save_path = "models/text_classifier_model.pkl"
+        self.model_save_path = "../../models/text_classifier_model.pkl"
         self.vectorizer = TfidfVectorizer()
         self.classifier = SVC(kernel='linear', probability=True)
         self.categories = []

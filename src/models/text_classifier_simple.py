@@ -26,7 +26,7 @@ Example:
 
 import math
 
-from text_preprocessor import TextPreprocessor
+from src.models.text_preprocessor import TextPreprocessor
 
 
 class TextClassifier:
