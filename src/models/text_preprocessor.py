@@ -50,7 +50,7 @@ class TextPreprocessor:
         return list(filter(lambda word: word not in string.punctuation, words))
 
     def __setup_ukrainian_language(self):
-        stopwords_ua = pandas.read_csv("../../resources/stopwords_ua.txt", header=None, names=['stopwords'])
+        stopwords_ua = pandas.read_csv("resources/stopwords_ua.txt", header=None, names=['stopwords'])
         self.stop_words = list(stopwords_ua.stopwords)
         if self.use_stemming:
             self.stemmer = uk_stemmer.UkStemmer()

@@ -47,7 +47,7 @@ class TextClassifier:
             use_stemming (bool, optional): Whether to perform stemming during text preprocessing.
                 Defaults to True.
         """
-        self.model_save_path = "../../models/text_classifier_model.pkl"
+        self.model_save_path = "models/text_classifier_model.pkl"
         self.vectorizer = TfidfVectorizer()
         self.classifier = SVC(kernel='linear', probability=True)
         self.categories = []
