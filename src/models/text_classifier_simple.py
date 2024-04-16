@@ -60,7 +60,8 @@ class TextClassifier:
             words = set(text.split())
             for word in words:
                 word_document_count[word] = word_document_count.get(word, 0) + 1
-        idf = {word: math.log10(total_documents / (count + 1)) for word, count in word_document_count.items()}
+        idf = {word: math.log2(total_documents / (count if count > 0 else 1)) for word, count in
+               word_document_count.items()}
         return idf
 
     @staticmethod
