@@ -1,3 +1,4 @@
+import threading
 import tkinter as tk
 from tkinter import filedialog, messagebox, scrolledtext
 from tkinter.ttk import Combobox
@@ -105,6 +106,11 @@ class TextClassifierGUI:
                 self.files_listbox.insert(tk.END, file_path)
 
     def submit(self):
+        thread = threading.Thread(target=self.background_submit_processing)
+        thread.start()
+
+    def background_submit_processing(self):
+        self.__show_progress_bar(self.master)
         language = self.languages_combobox.get().lower()
 
         texts = [DocumentParser.parse_to_text(file_path) for file_path in self.file_paths]
@@ -122,21 +128,34 @@ class TextClassifierGUI:
             else:
                 self.results_text.insert(tk.END, f"{file} - {list(category.keys())[0]}\n")
         self.copy_button.config(state=tk.NORMAL)
+        self.__show_model_buttons(self.master)
 
     def train_start(self):
+        thread = threading.Thread(target=self.background_train)
+        thread.start()
+
+    def save_start(self):
+        thread = threading.Thread(target=self.background_save)
+        thread.start()
+
+    def load_start(self):
+        thread = threading.Thread(target=self.background_load())
+        thread.start()
+
+    def background_train(self):
         self.__show_progress_bar(self.master)
         folder_selected = filedialog.askdirectory()
         self.text_classifier.train(folder_selected)
         self.categories_label.config(text=f'Categories: {self.text_classifier.categories}')
         self.__show_model_buttons(self.master)
 
-    def save_start(self):
+    def background_save(self):
         self.__show_progress_bar(self.master)
         folder_selected = filedialog.askdirectory()
         self.text_classifier.save(folder_selected)
         self.__show_model_buttons(self.master)
 
-    def load_start(self):
+    def background_load(self):
         self.__show_progress_bar(self.master)
         folder_selected = filedialog.askdirectory()
         self.__load_model(folder_selected)
