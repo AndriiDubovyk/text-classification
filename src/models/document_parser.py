@@ -80,7 +80,6 @@ class DocumentParser:
             category_dir = os.path.join(directory, category)
             for filename in os.listdir(category_dir):
                 file_path = os.path.join(category_dir, filename)
-                print(file_path)
                 text = DocumentParser.parse_to_text(file_path)
                 data.append({'label': category, 'text': text})
         return pd.DataFrame(data)

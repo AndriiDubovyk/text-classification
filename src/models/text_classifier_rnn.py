@@ -71,15 +71,8 @@ class TextClassifier:
                        callbacks=[learning_rate_reduction],
                        epochs=epochs)
 
-        loss, acc = self.model.evaluate(train_ds)
-        print('The accuracy of the model for training data is: ', acc * 100)
-        print('The loss of the model for training data is:', loss)
-        loss, acc = self.model.evaluate(valid_ds)
-        print('The accuracy of the model for validation data is:', acc * 100)
-        print('The loss of the model for validation data is:', loss)
-        loss, acc = self.model.evaluate(test_ds)
-        print('The accuracy of the model for testing data is:', acc * 100)
-        print('The loss of the model for testing data is:', loss)
+        _, acc = self.model.evaluate(test_ds)
+        return acc
 
     def save(self, directory):
         model_path = os.path.join(directory, "model.keras")

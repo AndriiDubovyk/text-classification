@@ -145,20 +145,24 @@ class TextClassifierGUI:
     def background_train(self):
         self.__show_progress_bar(self.master)
         folder_selected = filedialog.askdirectory()
-        self.text_classifier.train(folder_selected)
-        self.categories_label.config(text=f'Categories: {self.text_classifier.categories}')
+        if folder_selected != "":
+            accuracy = self.text_classifier.train(folder_selected)
+            self.categories_label.config(text=f'Categories: {self.text_classifier.categories}')
+            messagebox.showinfo("Training is complete", f'Accuracy of the model: {accuracy}')
         self.__show_model_buttons(self.master)
 
     def background_save(self):
         self.__show_progress_bar(self.master)
         folder_selected = filedialog.askdirectory()
-        self.text_classifier.save(folder_selected)
+        if folder_selected != "":
+            self.text_classifier.save(folder_selected)
         self.__show_model_buttons(self.master)
 
     def background_load(self):
         self.__show_progress_bar(self.master)
         folder_selected = filedialog.askdirectory()
-        self.__load_model(folder_selected)
+        if folder_selected != "":
+            self.__load_model(folder_selected)
         self.__show_model_buttons(self.master)
 
     def copy_results(self):
