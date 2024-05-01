@@ -52,7 +52,7 @@ class TextClassifier:
             encoder,
             tf.keras.layers.Embedding(VOCAB_SIZE, EMBEDDING_DIM, mask_zero=True),
             tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(64, return_sequences=True)),
-            tf.keras.layers.GlobalAvgPool1D(),
+            tf.keras.layers.GlobalMaxPooling1D(),
             tf.keras.layers.Dense(64, activation='relu'),
             tf.keras.layers.BatchNormalization(),
             tf.keras.layers.Dropout(0.2),
