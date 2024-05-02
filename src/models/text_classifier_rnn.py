@@ -68,7 +68,7 @@ class TextClassifier:
                                                           restore_best_weights=True)
 
         self.model.compile(loss=tf.keras.losses.sparse_categorical_crossentropy,
-                           optimizer=tf.keras.optimizers.Adam(1e-4),
+                           optimizer=tf.keras.optimizers.RMSprop(),
                            metrics=['accuracy'])
 
         self.model.fit(train_ds,
