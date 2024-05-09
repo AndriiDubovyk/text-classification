@@ -5,20 +5,20 @@ from tkinter.ttk import Combobox
 
 from deep_translator import GoogleTranslator
 
-from src.models.document_parser import DocumentParser
-from src.models.text_classifier_rnn import TextClassifier
+from src.classifiers.text_classifier_rnn import TextClassifierRNN
+from src.utils.document_parser import DocumentParser
 
 
 class TextClassifierGUI:
-    def __load_model(self, path="models/rnn/"):
-        self.text_classifier = TextClassifier()
+    def __load_model(self, path="saved_models/rnn/"):
+        self.text_classifier = TextClassifierRNN()
         self.text_classifier.load(path)
         self.categories_label.config(text=f'Categories: {self.text_classifier.categories}')
 
     def __init_ui(self, master):
         self.master = master
         master.title("Text Classifier")
-        master.geometry("800x600")
+        master.geometry("800x800")
 
         self.__show_model_buttons(master)
 
@@ -46,10 +46,13 @@ class TextClassifierGUI:
         self.detail_var = tk.IntVar(value=1)
         self.detail_checkbox = tk.Checkbutton(master, text="Detailed Results", variable=self.detail_var,
                                               font=("Arial", 12))
-        self.detail_checkbox.grid(row=6, column=0, columnspan=2, pady=5, padx=10, sticky=tk.W)
+        self.detail_checkbox.grid(row=6, column=0, columnspan=1, pady=5, padx=10, sticky=tk.W)
 
         self.submit_button = tk.Button(master, text="Submit", command=self.submit, font=("Arial", 12))
         self.submit_button.grid(row=6, column=1, columnspan=1, pady=10, padx=10, sticky=tk.W + tk.E)
+
+        self.weight_field = tk.Entry(master, font=("Arial", 12))
+        self.weight_field.grid(row=6, column=2, columnspan=1, pady=10, padx=10, sticky=tk.W + tk.E)
 
         self.copy_button = tk.Button(master, text="Copy Results", command=self.copy_results, state=tk.DISABLED,
                                      font=("Arial", 12))
