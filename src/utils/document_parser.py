@@ -4,6 +4,8 @@ import PyPDF2
 import docx
 import pandas as pd
 
+from src.utils.text_preprocessor import TextPreprocessor
+
 
 class DocumentParser:
     """A class for parsing text from .txt, .pdf, and .docx files.
@@ -83,3 +85,10 @@ class DocumentParser:
                 text = DocumentParser.parse_to_text(file_path)
                 data.append({'label': category, 'text': text})
         return pd.DataFrame(data)
+
+    @staticmethod
+    def parse_and_preprocess_files_to_df(directory):
+        df = DocumentParser.parse_files_to_df(directory)
+        text_preprocessor = TextPreprocessor(language='english', use_stemming=False, use_lemmatization=True)
+        df['text'] = df['text'].apply(lambda txt: text_preprocessor.preprocess(txt))
+        return df
