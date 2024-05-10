@@ -64,23 +64,18 @@ class TextClassifierComplex:
     def predict(self, user_text, nb_weight=1, svm_weight=1, rnn_weight=1):
         results = {}
         sum_weights = nb_weight + svm_weight + rnn_weight
-        if sum_weights == 0:
-            sum_weights = 1
         if self.classifer_nb:
             nb_prediction = self.classifer_nb.predict(user_text)
-            print("nb_prediction", nb_prediction)
             for category, probability in nb_prediction.items():
                 results[category] = results.get(category, 0) + probability * nb_weight / sum_weights
 
         if self.classifer_svm:
             svm_prediction = self.classifer_svm.predict(user_text)
-            print("svm_prediction", svm_prediction)
             for category, probability in svm_prediction.items():
                 results[category] = results.get(category, 0) + probability * svm_weight / sum_weights
 
         if self.classifer_rnn:
             rnn_prediction = self.classifer_rnn.predict(user_text)
-            print("rnn_prediction", rnn_prediction)
             for category, probability in rnn_prediction.items():
                 results[category] = results.get(category, 0) + probability * rnn_weight / sum_weights
 

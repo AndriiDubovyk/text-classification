@@ -1,5 +1,6 @@
 import json
 import os
+import time
 
 import numpy as np
 import tensorflow as tf
@@ -21,6 +22,7 @@ class TextClassifierRNN:
         self.text_preprocessor = TextPreprocessor(language='english', use_stemming=False, use_lemmatization=True)
 
     def train(self, directory_path=None, preprocessed_text_df=None, epochs=50):
+        start_time = time.time()
         if directory_path:
             df = DocumentParser.parse_files_to_df(directory_path)
             df['text'] = df['text'].apply(lambda txt: self.text_preprocessor.preprocess(txt))
@@ -84,8 +86,9 @@ class TextClassifierRNN:
                        epochs=epochs)
 
         loss, acc = self.model.evaluate(test_ds)
-        print("Test accuracy: ", acc)
-        print("Test loss: ", loss)
+        print(f"RNN training time: ${time.time() - start_time} seconds")
+        print("RNN test accuracy: ", acc)
+        print("RNN test loss: ", loss)
         return acc
 
     def save(self, directory):

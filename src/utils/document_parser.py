@@ -1,4 +1,5 @@
 import os
+import time
 
 import PyPDF2
 import docx
@@ -88,7 +89,9 @@ class DocumentParser:
 
     @staticmethod
     def parse_and_preprocess_files_to_df(directory):
+        start_time = time.time()
         df = DocumentParser.parse_files_to_df(directory)
         text_preprocessor = TextPreprocessor(language='english', use_stemming=False, use_lemmatization=True)
         df['text'] = df['text'].apply(lambda txt: text_preprocessor.preprocess(txt))
+        print(f"Document parsing and processing time: ${time.time() - start_time} seconds")
         return df

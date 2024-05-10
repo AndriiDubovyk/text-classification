@@ -29,13 +29,6 @@ import uk_stemmer  # pip install git+https://github.com/Desklop/Uk_Stemmer
 
 class TextPreprocessor:
     def __init__(self, language='english', use_lemmatization=False, use_stemming=True):
-        """Initialize the TextPreprocessor.
-
-        Args:
-            language (str, optional): The language of the text data. Defaults to 'english'.
-            use_lemmatization (bool, optional): Whether to perform lemmatization. Defaults to False.
-            use_stemming (bool, optional): Whether to perform stemming. Defaults to True.
-        """
         self.language = language
         self.use_stemming = use_stemming
         self.use_lemmatization = use_lemmatization

@@ -1,6 +1,7 @@
 import json
 import os
 import pickle
+import time
 
 from sklearn.calibration import CalibratedClassifierCV
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -20,6 +21,7 @@ class TextClassifierSVM:
         self.text_preprocessor = TextPreprocessor(language='english', use_stemming=False, use_lemmatization=True)
 
     def train(self, directory_path=None, preprocessed_text_df=None):
+        start_time = time.time()
         if directory_path:
             df = DocumentParser.parse_files_to_df(directory_path)
             df['text'] = df['text'].apply(lambda txt: self.text_preprocessor.preprocess(txt))
@@ -53,8 +55,9 @@ class TextClassifierSVM:
         test_predictions = self.model.predict(x_test['text'])
         test_accuracy = accuracy_score(x_test['label'], test_predictions)
 
-        print("Validation accuracy: ", val_accuracy)
-        print("Test accuracy: ", test_accuracy)
+        print(f"SVM training time: ${time.time() - start_time} seconds")
+        print("SVM validation accuracy: ", val_accuracy)
+        print("SVM test accuracy: ", test_accuracy)
 
         return test_accuracy
 
