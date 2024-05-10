@@ -44,7 +44,7 @@ class TextClassifierNB:
         ])
 
         # Train model
-        self.model.fit(x_train['text'], x_train['label'].astype('category').cat.codes)
+        self.model.fit(x_train['text'], x_train['label'])
 
         val_predictions = self.model.predict(x_val['text'])
         val_accuracy = accuracy_score(x_val['label'], val_predictions)

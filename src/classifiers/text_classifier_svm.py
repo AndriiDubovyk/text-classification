@@ -38,7 +38,7 @@ class TextClassifierSVM:
         labels_test_val = x_temp['label']
         x_test, x_val = train_test_split(x_temp, test_size=0.5, stratify=labels_test_val, random_state=25)
 
-        # Training model
+        # Define model
         self.model = Pipeline([
             ('tfidf', TfidfVectorizer()),
             ('svc', CalibratedClassifierCV(LinearSVC())),
