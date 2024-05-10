@@ -89,6 +89,9 @@ class TextClassifierRNN:
         return acc
 
     def save(self, directory):
+        # Create directory if it doesn't exist
+        if not os.path.exists(directory):
+            os.makedirs(directory)
         model_path = os.path.join(directory, "model.keras")
         categories_path = os.path.join(directory, "categories.json")
         if self.model is not None:

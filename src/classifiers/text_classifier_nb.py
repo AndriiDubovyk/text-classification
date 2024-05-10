@@ -58,6 +58,9 @@ class TextClassifierNB:
         return test_accuracy
 
     def save(self, directory):
+        # Create directory if it doesn't exist
+        if not os.path.exists(directory):
+            os.makedirs(directory)
         model_path = os.path.join(directory, "model.pkl")
         categories_path = os.path.join(directory, "categories.json")
         with open(model_path, 'wb') as f:
